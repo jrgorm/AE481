@@ -24,7 +24,15 @@ R_L = 30; % Airframe Maintainance Rate
 MTOW = 729715.187572647; %% Maximum take off weight (final)
 wE = 324490.565305081;
 Wfuel = 364784.622267566; %%% Weight of Fuel at takeoff
-weightEstimation_initial;
+ff1=0.990; % start and warmup (Roskam)
+ff2=0.990; % taxi (Roskam)
+ff3=0.995; % takeoff (Roskam)
+ff4=0.980; % climb (Roskam)
+ff5=0.6145; % cruise (Roskam)
+ff6=0.9890; % start and warmup (Roskam)
+ff7=0.990; % taxi (Roskam)
+ff8=0.9305; % takeoff (Roskam)
+ff9=0.9920; % climb (Roskam)
 WCruise = wE + Wfuel*ff1*ff2*ff3*ff4*ff5; % W at beginning of cruise: wE + Wfuel*ff1*ff2*ff3*ff4*ff5
 T0 = 211002.4868/2; %% Engine max thrust (pounds)
 Neng = 2; %% Number of engines
