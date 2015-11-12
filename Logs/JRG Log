@@ -1,0 +1,19 @@
+11/9/2015
+Collated code from PDR submission:
+	- Added Updated MM/D/YYYY Author: INI header to all files, please use this format when making changes to any scripts; make a new entries above previous update headers
+  - Renamed parametersPDR.m to parameters.m and removed all references to parametersPDR.m in scripts
+  - Deleted outdated dragpolar.m and will keep dragpolarPDR.m for the time being
+
+11/10/2015
+Code edits:
+	- Added fuel fractions to parameters
+	- Uncommented useful portion of weightEstimation_initial.m
+Investigated use of 4 engines; Climb TW/WS plot doesn't work with more than 2 engines
+
+
+11/12/2015
+GIT repo edit:
+	- Added Landing_Distance.m and TO_length_est.m
+Code edits: 
+	- Added WingArea (ft^2 beware units) to parameters file... It is needed for some code to function. We need only update reference area once for all calculations now
+	- Attempted edits of TO_length_est.m for smooth operation
