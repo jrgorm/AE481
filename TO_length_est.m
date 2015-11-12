@@ -4,8 +4,8 @@
 
 parameters;
 
-W0 = MTOW*9.81;   % [N]
-T0 = 938585.8194;   %in N
+W0 = MTOW*0.45359237*9.81; % [N]
+T0 = 2*T0*4.44822162; %Total thrust [N]
 S_wing_wet = 511.8-12.28*5.79;  %Sref - root chord*fuselage diameter
 CL_max = 1.9;
 L_D_to = 7.3;
