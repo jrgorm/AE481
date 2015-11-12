@@ -2,7 +2,9 @@
 % Updated 11/12/2015 Author: JRG
 % http://www.aerospaceweb.org/question/performance/q0088.shtml
 
-W0 = 330993.2414*9.81;   %in N
+parameters;
+
+W0 = MTOW*9.81;   % [N]
 T0 = 938585.8194;   %in N
 S_wing_wet = 511.8-12.28*5.79;  %Sref - root chord*fuselage diameter
 CL_max = 1.9;
