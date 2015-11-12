@@ -55,6 +55,7 @@ AR_hist = 7.5;%Aspect Ratio	- (OLD ITERATION)
 b_hist = 200; %Historical wingspan [ft] (PDR VALUE)
 e = 0.930; %Span Efficiency	
 S_hist = (b_hist^2)/AR_hist;
+WingArea = 5508.86171; %Current reference area of wing, must be continually updated [ft^2] 
 
 k = 0.04; 
 ks = 1.2; %stall factor
