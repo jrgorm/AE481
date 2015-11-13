@@ -22,3 +22,7 @@ Code edits:
 Code edits:
 	- Added FuseD (m fuselage tube diameter), C_root (m wing root chord) to parameters file
 	- FINISHED review of existing code and transition of code to github
+Empennage research:
+	- Must select tail volume coefficients for desired stability and controllability
+	  High volume coefficient = More stable and less controllable
+	  Low volume coefficient = Less stable and more controllable
