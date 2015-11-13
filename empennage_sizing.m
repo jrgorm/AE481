@@ -1,12 +1,14 @@
+%%% Empennage Sizing
 % Updated 11/12/2015 Author: JRG
 
 MainWingSizing; % all in meters!
-l_ht = 34.95; % from CAD
-l_vt = 34.95; %just add 10ft to l_vt
-c_vt = 0.0604; %777: 0.06467, 340: 0.0569, 
-c_ht = 0.847; %777: 0.891, 340: 0.79
-s_vt = c_vt*66*511.8/l_vt;
-s_ht = c_ht*8.847*511.8/l_ht;
+
+l_ht = 36.67; % from CAD
+l_vt = 35.25; % from CAD
+c_vt = 0.06467; %777: 0.06467, 340: 0.0569, 
+c_ht = 0.89; %777: 0.891, 340: 0.79
+s_vt = c_vt*b_w*WingAreaMeters/l_vt
+s_ht = c_ht*8.847*WingAreaMeters/l_ht
 AR_vt = 1.6;
 AR_ht = 4.5;
 lam_vt = 0.3;
