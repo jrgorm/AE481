@@ -1,5 +1,4 @@
 %%% MOST RECENT PARAMETERS FOR PDR
-% Updated 11/12/2015 Author: JRG
 % Updated 11/9/2015 Author: ---
 
 
@@ -56,9 +55,12 @@ AR_hist = 7.5;%Aspect Ratio	- (OLD ITERATION)
 b_hist = 200; %Historical wingspan [ft] (PDR VALUE)
 e = 0.930; %Span Efficiency	
 S_hist = (b_hist^2)/AR_hist;
-WingArea = 5508.86171; %Current reference area of wing, must be continually updated [ft^2]
-WingAreaMeters = WingArea*0.09290304; %Current reference area of wing, must be continually updated [m^2]
+WingArea = 5508.86171; %Current reference area of wing [ft^2]
+WingAreaMeters = WingArea*0.09290304; %Current reference area of wing [m^2]
 b_w = 66.42; %Current wingspan [m]
+C_root = 12.28; %Current wing root chord [m]
+
+FuseD = 5.79; %Fuselage diameter [m]
 
 k = 0.04; 
 ks = 1.2; %stall factor
