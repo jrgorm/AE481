@@ -21,3 +21,4 @@ Code edits:
 11/13/2015
 Code edits:
 	- Added FuseD (m fuselage tube diameter), C_root (m wing root chord) to parameters file
+	- FINISHED review of existing code and transition of code to github
