@@ -24,5 +24,7 @@ Code edits:
 	- FINISHED review of existing code and transition of code to github
 Empennage research:
 	- Must select tail volume coefficients for desired stability and controllability
+	  Directly related to tail size
 	  High volume coefficient = More stable and less controllable
 	  Low volume coefficient = Less stable and more controllable
+	  We need stability more than controllability, but we don't need a huge tail either
