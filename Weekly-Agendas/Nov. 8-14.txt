@@ -1,0 +1,27 @@
+Weekly Agenda
+
+*Split into sub-groups:
+Brian + Jason - Review wing code, will collaborate with Seth
+Seth - Ramp up on AVL + CAD of wing (future)
+John - Empennage, review all other code, updating GITHUB (forever!) and making transition to GITHUB smooth
+Adam - Research what goes into CDR after PDR, no more CAD for few weeks
+Joey - AVL
+
+Notes:
+Wing will be major design driver
+Make design iterations of wing
+Research multiple airfoil sections across wing
+Think about raked wingtips for cruise benefits
+
+CAD new wing every week or 3-5 iterations
+
+Fuselage tube/interior design is FINALIZED
+
+This week's assignment not huge so we focus on future work
+such as XFOIL, AVL
+
+EVERYONE PUT PERSONAL NOTEPAD LOG FILE ON GITHUB
+no unified format yet, work description and date is fine
+
+Remember we have a GIT repository now, please let John know when you make a
+github account so he can add you as collaborator and edit files
