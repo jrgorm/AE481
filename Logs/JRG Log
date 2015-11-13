@@ -10,7 +10,6 @@ Code edits:
 	- Uncommented useful portion of weightEstimation_initial.m
 Investigated use of 4 engines; Climb TW/WS plot doesn't work with more than 2 engines
 
-
 11/12/2015
 GIT repo edit:
 	- Added Landing_Distance.m and TO_length_est.m, fuselage_sizing.m, empennage_sizing.m, MainWingSizing.m ...that should do it for old MATLAB files
