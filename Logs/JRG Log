@@ -15,5 +15,5 @@ Investigated use of 4 engines; Climb TW/WS plot doesn't work with more than 2 en
 GIT repo edit:
 	- Added Landing_Distance.m and TO_length_est.m, fuselage_sizing.m, empennage_sizing.m, MainWingSizing.m ...that should do it for old MATLAB files
 Code edits: 
-	- Added WingArea (ft^2 beware units) to parameters file... It is needed for some code to function. We need only update reference area once for all calculations now
-	- Attempted edits of TO_length_est.m for smooth operation
+	- Added WingArea (with ft^2 and m^2, beware units) and b_w (m^2 wingspan) to parameters file... It is needed for some codes to function. We need only them once for many calculations now
+	- Edited TO_length_est.m, empennage_sizing.m, MainWingSizing.m for smooth operation
