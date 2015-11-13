@@ -1,12 +1,12 @@
 %%% Field length estimation
-% Updated 11/12/2015 Author: JRG
+% Updated 11/13/2015 Author: JRG
 % http://www.aerospaceweb.org/question/performance/q0088.shtml
 
 parameters;
 
 W0 = MTOW*0.45359237*9.81; % [N]
 T0 = 2*T0*4.44822162; %Total thrust [N]
-S_wing_wet = 511.8-12.28*5.79;  %Sref - root chord*fuselage diameter
+S_wing_wet = WingAreaMeters-C_root*FuseD;  %Sref - root chord*fuselage diameter
 CL_max = 1.9;
 L_D_to = 7.3;
 v_clear = 10.668;
