@@ -28,3 +28,6 @@ Empennage research:
 	  High volume coefficient = More stable and less controllable
 	  Low volume coefficient = Less stable and more controllable
 	  We need stability more than controllability, but we don't need a huge tail either
+	  Basically our tail sizing depends on the volume coefficients and when we know more about stability of our aircraft
+	  	we can tweak these coefficients to give different tail size
+	  But the tail size is in the ballpark of 60 m^2 vertical and 100 m^2 horizontal
