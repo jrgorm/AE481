@@ -1,12 +1,11 @@
-%%% TW -WS Plotting Design Space
-% Updated 11/9/2015 Author: ---
+%%% TW -WS Plotting Design Space (DP: 113,0.204)
 
 set(0, 'DefaultAxesFontName','Times New Roman')
 set(0, 'DefaultTextFontSize',11)
 
 W_S = 1:1:1000;
 
-parameters;
+parametersPDR;
 dragpolarPDR;
 climb;
 cruise;
