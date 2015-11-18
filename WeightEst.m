@@ -1,17 +1,11 @@
-%%% Refined Weight Estimation
-% Updated 11/9/2015 Author: ---
+%%% Refined Weight Estimation 
 
 function [W0,Wf] = WeightEst(S,T)
 
-parameters;
+parametersPDR;
+dragpolarPDR;
 
 wFOverWTO = 0.4999; %Constant from initial weight estimation
-
-SfuseCabin = 8409; %ft^2
-SfuseCockpit = 1100; %ft^2
-SfuseTail = 2406; %ft^2
-Shtail = 1122; %ft^2
-Svtail = 616; %ft^2
 
 wEst = MTOW;
 wNew = 1.5*MTOW;
