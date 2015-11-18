@@ -1,7 +1,6 @@
 %%% Drag Polar Calcuations and Plotting
-% Updated 11/9/2015 Author: ---
 
-parameters;
+parametersPDR;
 
 %%% Design Wetted Area & Ref Area
 %%% From CAD model
@@ -12,9 +11,9 @@ SfuseCabin = 2*pi*r_fus*h_fus; %ft^2 Calc using surface area of tube
 SfuseCockpit = 1322; %%% ft^2 (wetted)
 SfuseTail = 2488; %%% ft^2 (wetted)
 
-Shtail = 2243.2; %%% ft^2 (wetted)
-Svtail = 1235.9; %%% ft^2 (wetted)
-Sengine = 702 * 2; %%% ft^2 (2 engines wetted exterior area)
+Shtail = 2243; %%% ft^2 (wetted)
+Svtail = 1184; %%% ft^2 (wetted)
+Sengine = 883 * 2; %%% ft^2 (2 engines wetted exterior area)
 
 Swing_all = 12744.5; %%% ft^2 ** (wetted main wing area)
 Swing_fus = 2 * 1065.63; %%% ft^2 (wetted area of wing residing inside fuselage)
@@ -24,9 +23,9 @@ S_wet_CAD = SfuseCabin + SfuseCockpit + SfuseTail + Shtail + Svtail + Swing + Se
 
 S_ref_CAD = 5508.86171; %%% design point reference area of wing (ft^2)
 
-%%% Raymer Estimated Wetted Area	
+%% Raymer Estimated Wetted Area	
 
-%%% Constants (Roskam)
+% Constants (Roskam)
 
 S_ref_hist = S_hist;  
 
@@ -34,17 +33,17 @@ Swet_Sref_hist = 6.25; %%% Estimate (Raymer)
 
 Swet_hist = Swet_Sref_hist * S_ref_hist; %%% check resulting wetted area
 		
-%%% Swet/Sref:
+% Swet/Sref:
 Swet_Sref_hist = 6.25; %%% Estimate from historical trends (Raymer) 
 
-%%% Choose Calc vs. Hist case
+%% Choose Calc vs. Hist case
 S_wet = S_wet_CAD;
 
 S_ref = S_ref_CAD;
 
 Swet_Sref_CAD = S_wet/S_ref
 
-%%% Equivalent Parasite Area	
+%% Equivalent Parasite Area	
 
 Cf = 0.0035; %Estimate from Raymer
 
@@ -54,7 +53,7 @@ CD0_cruise_hist = Cf*Swet_Sref_hist
 
 CD0_cruise = S_wet/S_ref*Cf  %Parasite drag coefficient
 
-%%% Change in CD0
+%%% Change in CD0 (Sizing 1: slide 17)
 delCD0_takeoff_flaps = 0.015;
 delCD0_landing_flaps = 0.065;
 delCD0_landing_gear = 0.020;
