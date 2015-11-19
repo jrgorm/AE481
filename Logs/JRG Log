@@ -38,3 +38,7 @@ Created new Parameters.m file
 Github edits:
 Moved all codes that have been worked on until today into Old-Code folder, all code written or updated  from this point will be in root folder (unless it is special code like optimizer)
 
+11/19/15
+John - Code edits:
+Fleshed out rest of Fuel_Weight.m it should have most of the functions ready to run
+Edited Parameters.m, there are a lot of unknowns for now
