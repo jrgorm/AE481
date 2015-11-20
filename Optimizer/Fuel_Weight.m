@@ -9,9 +9,9 @@ g = 9.8; %[m/s^2] Gravitational acceleration
 %%% NOTE all T0 is taken as single engine maximum thrust %%%
 
 %% Startup and Take-off
-W1_W0 = 1-C*0.25*((0.05*2*T0)/W0); %Weight fraction MTOW-Taxi
+W1_W0 = 1-C*(15*60)*((0.05*2*T0)/W0); %Weight fraction MTOW-Taxi
 W1 = W1_W0*W0; %[N] Weight at end of taxi
-W2_W1 = 1-C*(1/60)*((2*T0)/W1); %Weight fraction Taxi-TO
+W2_W1 = 1-C*(60)*((2*T0)/W1); %Weight fraction Taxi-TO
 W2 = W2_W1*W1; %[N] Weight at end of take-off
 
 %% Climb
@@ -31,10 +31,10 @@ D_climb(1) = (0.5*(rho_EWR.*V_climb(1).^2)).*Sref.*CD_climb(1); %[N] Drag force 
 
 h(1) = h_inc.*(1)+hbase; %[m] Climb segment height
 del_he(1) = (h(1)+((V_climb(1).^2)/(2*g)))-(hbase+((1.2*V_stall^2)/(2*g))); %[m] Variation between consecutive segments
-    
+
 W3_W2(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0)))); %Weight fraction TO-cruise per segment
 W_climb(2) = W3_W2(1).*W2; %[N] Weight at end of current climb segment
-    
+
 Ps(1) = (V_climb(1).*(2*T0-D_climb(1)))./W_climb(1);
 x_climb(1) = del_he(1)./Ps(1); %[m] Ground distance covered during climb segment
 
@@ -46,7 +46,7 @@ for i=2:n
     
     h(i) = h_inc.*(i)+hbase; %[m] Climb segment height
     del_he(i) = (h(i)+((V_climb(i).^2)./(2*g)))-(h(i-1)+((V_climb(i-1).^2)./(2*g))); %[m] Variation between consecutive segments
-
+    
     W3_W2(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0)))); %Weight fraction TO-cruise per segment
     W_climb(i+1) = W3_W2(i).*W2; %[N] Weight at end of current climb segment
     
@@ -54,7 +54,7 @@ for i=2:n
     x_climb(i) = del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
 end
 W3 = W_climb(n+1); %[N] Weight at end of climb
-climb_dist = sum(x_climb); %[m] Total ground distance covered during climb phase 
+climb_dist = sum(x_climb); %[m] Total ground distance covered during climb phase
 R = R-climb_dist; %[m] Remaining cruise range after climb
 
 %% Cruise
@@ -87,7 +87,7 @@ W7_W6 = exp(-R_alt/V_alt*C_alt/L_D_alt); %Weight fraction descent-alternate
 W8_W7 = 0.992; %Weight fraction alternate-landing-shutdown [Roskam]
 
 %% Weight
-Mff = W8_W7*W7_W6*W6_W5*W5_W4*W4_W3*W3_W2*W2_W1*W1_W0; %Total weight fraction startup-shutdown
+Mff = W8_W7*W7_W6*W6_W5*W5_W4*W4_W3*W3_W2(end)*W2_W1*W1_W0; %Total weight fraction startup-shutdown
 WFused_W0 = 1-Mff; %Ratio of burned fuel to MTOW
 WF = WFused_W0*W0; %[N] Fuel weight
 
