@@ -31,7 +31,6 @@ D_climb(1) = ((rho_EWR.*V_climb(1).^2)./2).*Sref.*CD_climb(1); %[N] Drag force d
 
 h(1) = h_inc.*(1)+hbase; %[m] Climb segment height
 del_he(1) = (h(1)+((V_climb(1).^2)/(2*g)))-(hbase+((1.2*V_stall^2)/(2*g))); %[m] Variation between consecutive segments
-
     
 W3_W2(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0)))); %Weight fraction TO-cruise per segment
 W_climb(2) = prod(W3_W2(1)).*W2; %[N] Current weight at end of current climb segment
@@ -49,13 +48,12 @@ for i=2:n
     del_he(i) = (h(i)+((V_climb(i).^2)./(2*g)))-(h(i-1)+((V_climb(i-1).^2)./(2*g))); %[m] Variation between consecutive segments
 
     W3_W2(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0)))); %Weight fraction TO-cruise per segment
-    W_climb(i+1) = prod(W3_W2(:)).*W2; %[N] Current weight at end of current climb segment
+    W_climb(i+1) = W3_W2(i).*W2; %[N] Current weight at end of current climb segment
     
     Ps(i) = (V_climb(i).*(2*T0-D_climb(i)))./W_climb(i);
     x_climb(i) = del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
 end
 W3 = W_climb(n+1); %[N] Weight at end of climb
-
 climb_dist = sum(x_climb); %[m] Total ground distance covered during climb phase 
 R = R-climb_dist; %[m] Remaining cruise range after climb
 
