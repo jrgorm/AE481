@@ -10,7 +10,7 @@ paramters;
 % get MTOW, Wf, T0
 MTOW = airplane.MTOW;
 Wf = airplane.MTOW;
-T0 = airplane.T0; %Do we need for COC directly? Looks like you need it for MTOW calc only
+T0 = airplane.T0; %Do we need for COC directly? Looks like you need it for MTOW calc only :: YES, see Engine maintenance costs.
 
 %% COC calculation
 
