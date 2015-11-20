@@ -19,7 +19,7 @@ n = 20; %[integer] Number of climb segments
 h_inc = (cruise_h-hbase)/n; %[m] Climb segment height increment
 
 W_climb = zeros(1,n); %Pre-allocation
-W3_W2 = ones(1,n); %Pre-allocation
+ff3 = ones(1,n); %Pre-allocation
 
 %Run first loop to create initial values
 W_climb(1) = W2; %Set start of climb weight to end of take-off weight
@@ -32,8 +32,8 @@ D_climb(1) = (0.5*(rho_EWR.*V_climb(1).^2)).*Sref.*CD_climb(1); %[N] Drag force 
 h(1) = h_inc.*(1)+hbase; %[m] Climb segment height
 del_he(1) = (h(1)+((V_climb(1).^2)/(2*g)))-(hbase+((1.2*V_stall^2)/(2*g))); %[m] Variation between consecutive segments
 
-W3_W2(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0)))); %Weight fraction TO-cruise per segment
-W_climb(2) = W3_W2(1).*W2; %[N] Weight at end of current climb segment
+ff3(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0)))); %Weight fraction TO-cruise per segment
+W_climb(2) = ff3(1).*W2; %[N] Weight at end of current climb segment
 
 Ps(1) = (V_climb(1).*(2*T0-D_climb(1)))./W_climb(1);
 x_climb(1) = del_he(1)./Ps(1); %[m] Ground distance covered during climb segment
@@ -47,12 +47,13 @@ for i=2:n
     h(i) = h_inc.*(i)+hbase; %[m] Climb segment height
     del_he(i) = (h(i)+((V_climb(i).^2)./(2*g)))-(h(i-1)+((V_climb(i-1).^2)./(2*g))); %[m] Variation between consecutive segments
     
-    W3_W2(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0)))); %Weight fraction TO-cruise per segment
-    W_climb(i+1) = W3_W2(i).*W2; %[N] Weight at end of current climb segment
+    ff3(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0)))); %Weight fraction TO-cruise per segment
+    W_climb(i+1) = ff3(i).*W2; %[N] Weight at end of current climb segment
     
     Ps(i) = (V_climb(i).*(2*T0-D_climb(i)))./W_climb(i);
     x_climb(i) = del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
 end
+W3_W2 = ff3(end);
 W3 = W_climb(n+1); %[N] Weight at end of climb
 climb_dist = sum(x_climb); %[m] Total ground distance covered during climb phase
 R = R-climb_dist; %[m] Remaining cruise range after climb
@@ -70,8 +71,8 @@ W4 = W_cruise(n+1); %[lb] Weight at end of cruise
 W4_W3 = W4/W3; %Weight fraction climb-cruise
 
 %Analytical result for cruise - useful for comparison with segment method
-%W_end = ((rho_cruise*Sref*V_cruise^2)/2)*sqrt(CD0_cruise/K_cruise)*tan(atan(sqrt(K+cruise/CD0_cruise)*((2*W3)/(rho_cruise*Sref*V_cruise^2)))-((C*R)/V_cruise)*sqrt(CD0_cruise*K_cruise));
-%W4_W3_analytical = W_end/W3;
+W_end = ((rho_cruise*Sref*V_cruise^2)/2)*sqrt(CD0_cruise/K_cruise)*tan(atan(sqrt(K_cruise/CD0_cruise)*((2*W3)/(rho_cruise*Sref*V_cruise^2)))-((C*R)/V_cruise)*sqrt(CD0_cruise*K_cruise));
+W4_W3_analytical = W_end/W3;
 
 %% Loiter
 CL_loiter = sqrt(CD0_loiter/K_loiter);
@@ -87,7 +88,7 @@ W7_W6 = exp(-R_alt/V_alt*C_alt/L_D_alt); %Weight fraction descent-alternate
 W8_W7 = 0.992; %Weight fraction alternate-landing-shutdown [Roskam]
 
 %% Weight
-Mff = W8_W7*W7_W6*W6_W5*W5_W4*W4_W3*W3_W2(end)*W2_W1*W1_W0; %Total weight fraction startup-shutdown
+Mff = W8_W7*W7_W6*W6_W5*W5_W4*W4_W3*W3_W2*W2_W1*W1_W0; %Total weight fraction startup-shutdown
 WFused_W0 = 1-Mff; %Ratio of burned fuel to MTOW
 WF = WFused_W0*W0; %[N] Fuel weight
 
