@@ -9,7 +9,22 @@
 %%% OUTPUTS: The ratio of the Empty Weight calculated in this function over the Max
 %%% Takeoff Weight that was inputted to this function
 
-function [WeOverMTOW] = EmptyweightIII(T,Sref,Sht,Svt,MTOWinput,AR,sweepAngle,taperRatio,tovercRoot,SfuseCabin,SfuseCockpit,SfuseTail,Scsurf)
+function [WeOverMTOW] = EmptyweightIII(parameters,thrustParameters,tailParameters)
+
+
+T = thrustParameters.T0;
+Sref = parameters.Sref;
+Sht = tailParameters.Sht;
+Svt = tailParameters.Svt;
+MTOWinput = parameters.W0;
+AR = parameters.AR;
+sweepAngle = parameters.sweep;
+taperRatio = parameters.taper;
+tovercRoot = parameters.t_c;
+SfuseCabin = parameters.SfuseCabin;
+SfuseCockpit = parameters.SfuseTail;
+Scsurf = parameters.Scsurf;
+
 
 %  Calculate weight of engine based on Thrust Input
 wEngdry = 0.521*(T)^0.9;
