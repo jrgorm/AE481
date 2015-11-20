@@ -8,6 +8,8 @@
 %% Define Wingloading
 airplane.W_S = MTOW/Sref;
 
+W_S = airplane.W_S;
+
 %% Contraints
 
 %%% Climb
@@ -72,8 +74,11 @@ T_W_maneuver = q_maneuver.*CD0_cruise./W_S + nz^2 .* (W_S./q_maneuver).* K_cruis
 
 %% Solve Contraints for bounding conditions, then find minimum T_W there
 
+T_W_design = max([T_W_climb_minimum_1,T_W_climb_minimum_2,T_W_climb_minimum_3,T_W_takeoff]);
+
+
 %% Solve T0 from T_W
 
-airplane.T0 = T_W * airplane.MTOW;
+airplane.T0 = T_W_design * airplane.MTOW;
 
 %% Pass T0 back to Empty Weight Calculation for iteration
