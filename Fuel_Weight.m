@@ -6,6 +6,8 @@ close all
 Parameters;
 g = 9.8; %[m/s^2] Gravitational acceleration
 
+%%% NOTE all T0 is taken as single engine maximum thrust %%%
+
 %% Startup and Take-off
 W1_W0 = 1-C*0.25*((0.05*2*T0)/W0); %Weight fraction MTOW-Taxi
 W1 = W1_W0*W0; %[N] Weight at end of taxi
@@ -14,7 +16,6 @@ W2 = W2_W1*W1; %[N] Weight at end of take-off
 
 %% Climb
 n = 20; %[integer] Number of climb segments
-hbase = 10.668; %[m] Altitude at start of climb
 h_inc = (cruise_h-hbase)/n; %[m] Climb segment height increment
 
 W_climb = zeros(1,n); %Pre-allocation
@@ -80,7 +81,7 @@ CD_loiter = CD0_loiter+K_loiter*CL_loiter^2;
 L_D_loiter = CL_loiter/CD_loiter;
 
 W5_W4 = exp(-(E_loiter*C_loiter)/L_D_loiter); %Weight fraction cruise-loiter
-W5 = W5_W4*W4; %[lb] Weight at end of loiter
+W5 = W5_W4*W4; %[N] Weight at end of loiter
 
 %% Descent, alternate, landing
 W6_W5 = 0.990; %Weight fraction loiter-descent [Roskam]
