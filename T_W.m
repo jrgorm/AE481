@@ -16,17 +16,9 @@ G_1 = .005;
 G_2 = .024;
 G_3 = .012;
 
-ks_1 = 1.2;
-ks_2 = 1.15;
-ks_3 = 1.2;
-
-CL_climb_1 = 2.7;
-CL_climb_2 = 2.3;
-CL_climb_3 = 1.9;
-
-T_W_climb_minimum_1 = Neng*(G_1+2*sqrt(CD0_climb_1/pi/AR/e_climb));
-T_W_climb_minimum_2 = Neng*(G_2+2*sqrt(CD0_climb_2/pi/AR/e_climb))-0.005;
-T_W_climb_minimum_3 = Neng*(G_3+2*sqrt(CD0_climb_3/pi/AR/e_cruise));
+T_W_climb_minimum_1 = Neng*(G_1+2*sqrt(CD0_climb_1*K_climb));
+T_W_climb_minimum_2 = Neng*(G_2+2*sqrt(CD0_climb_2*K_climb))-0.005;
+T_W_climb_minimum_3 = Neng*(G_3+2*sqrt(CD0_climb_3*K_cruise));
 
 %%% Cruise
 %Velocity at cruise
@@ -35,7 +27,7 @@ v_cruise = mCruise*aCruise;
 %Dynamic Pressure
 q_cruise = .5*rho_cruise*v_cruise^2;
 
-T_W_cruise = q_cruise.*CD0_cruise./W_S + W_S.*(1./q_cruise./pi./AR./e_cruise);
+T_W_cruise = q_cruise.*CD0_cruise./W_S + W_S.*(1./q_cruise.*K_cruise;
 
 %%% Takeoff
 
@@ -46,7 +38,7 @@ BFL = S_EWR; %Balanced field length (BFL) (ft)
                
 TOP = BFL/37.5; %Take-off parameter (TOP) 
 
-T_W_takeoff = W_S/((rho_EWR/rho_SL)*CLmax_climb*TOP);
+T_W_takeoff = W_S/((rho_EWR/rho_SL)*CL_climb*TOP);
 
 %%% Land
 
@@ -58,7 +50,7 @@ T_W_takeoff = W_S/((rho_EWR/rho_SL)*CLmax_climb*TOP);
 S_a = 1000; 
 S_land = S_SIN;
 
-W_S_land = (rho_SIN/rho_SL)*CLmax_landing/80*(S_land-S_a)/1.67; 
+W_S_land = (rho_SIN/rho_SL)*CL_landing/80*(S_land-S_a)/1.67; 
 
 %%% Ceiling
 
