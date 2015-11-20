@@ -5,7 +5,7 @@ set(0, 'DefaultTextFontSize',11)
 
 W_S = 1:1:1000;
 
-parametersPDR;
+Parameters;
 dragpolarPDR;
 climb;
 cruise;
