@@ -10,7 +10,7 @@ function [thrustParameters] = T_W_Calc(parameters,dragPolar)
 %% Define Wingloading
 thrustParameters.W_S = parameters.W0/parameters.Sref;
 
-%% Load Parameters
+%% %Load Parameters
 
 %%% Climb
 % Climb Gradients
