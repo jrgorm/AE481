@@ -1,6 +1,7 @@
 %%% Fuel Fractions
 % Updated 11/19/15 JRG
 
+clear all
 close all
 Parameters;
 g = 32.174; %[ft/s^2] Gravitational acceleration
@@ -13,32 +14,52 @@ W2 = W2_W1*W1; %[lb] Weight at end of take-off
 
 %% Climb
 n = 20; %[integer] Number of climb segments
-W_climb(1) = W2; %[lb] Weight at start of climb
-V_climb(1) = 0; %[ft/s] Initial climb airspeed (=/= climb rate)
-h(1) = 35; %[ft] Altitude at start of climb
-del_h = (cruise_h-35)/n; %[ft] Climb segment height increment
-for i=2:n+1
-    V_climb(i) = sqrt(((W_climb(i)/Sref)/(3*rho_EWR*CD0_climb))*(((2*T0)/W_climb(i))+sqrt(((2*T0)/W_climb(i))^2 +12*CD0_climb*K_climb)));
-    CL_climb(i) = (2*W_climb(i))/(rho_EWR*Sref*V_climb(i)^2);
-    CD_climb(i) = CD0_climb+K_climb*CL_climb(i)^2;
-    D_climb(i) = ((rho_EWR*V_climb(i)^2)/2)*Sref*CD_climb(i);
+hbase = 35; %[ft] Altitude at start of climb
+del_h = (cruise_h-hbase)/n; %[ft] Climb segment height increment
+
+W_climb = zeros(1,n);
+W3_W2 = ones(1,n);
+
+W_climb(1) = W2;
+
+V_climb(1) = sqrt(((W_climb(1)./Sref)./(3*rho_EWR*CD0_climb)).*(((2*T0)./W_climb(1))+sqrt(((2*T0)./W_climb(1)).^2 +12*CD0_climb*K_climb)));
+CL_climb(1) = (2.*W_climb(1))./(rho_EWR.*Sref.*V_climb(1).^2);
+CD_climb(1) = CD0_climb+K_climb.*CL_climb(1).^2;
+D_climb(1) = ((rho_EWR.*V_climb(1).^2)./2).*Sref.*CD_climb(1);
     
-    h(i) = h(i-1)+del_h; %[ft] Climb segment height
-    del_he(i) = (h(i)+((V_climb(i)^2)/(2*g)))-(h(i-1)+((V_climb(i-1)^2)/(2*g))); 
+h(1) = del_h.*(1)+hbase; %[ft] Climb segment height
+del_he(1) = (h(1)+((V_climb(1).^2)/(2*g)))-(hbase+((1.2*V_stall^2)/(2*g)));
+
     
-    Wf_Wi(i) = exp(-(C*del_he(i))/(V_climb(i)*(1-D_climb(i)/(2*T0))));
-    W_climb(i) = prod(Wf_Wi(:))*W_climb(1); %[lb] Current weight
+W3_W2(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0))));
+W_climb(2) = prod(W3_W2(1)).*W2; %[lb] Current weight
     
-    Ps(i) = (V_climb(i)*(2*T0-D_climb(i)))/W_climb(i);
-    x_climb(i) = del_he(i)/Ps(i); %[ft] Ground distance covered during climb segment
+Ps(1) = (V_climb(1).*(2*T0-D_climb(1)))./W_climb(1);
+x_climb(1) = del_he(1)./Ps(1); %[ft] Ground distance covered during climb segment
+
+for i=2:n
+    V_climb(i) = sqrt(((W_climb(i)./Sref)./(3*rho_EWR*CD0_climb)).*(((2*T0)./W_climb(i))+sqrt(((2*T0)./W_climb(i)).^2 +12*CD0_climb*K_climb)));
+    CL_climb(i) = (2.*W_climb(i))./(rho_EWR.*Sref.*V_climb(i).^2);
+    CD_climb(i) = CD0_climb+K_climb.*CL_climb(i).^2;
+    D_climb(i) = ((rho_EWR.*V_climb(i).^2)./2).*Sref.*CD_climb(i);
+    
+    h(i) = del_h.*(i)+hbase; %[ft] Climb segment height
+    del_he(i) = (h(i)+((V_climb(i).^2)./(2*g)))-(h(i-1)+((V_climb(i-1).^2)./(2*g)));
+
+    W3_W2(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0))));
+    W_climb(i+1) = W3_W2(i).*W_climb(i); %[lb] Current weight
+    
+    Ps(i) = (V_climb(i).*(2*T0-D_climb(i)))./W_climb(i);
+    x_climb(i) = del_he(i)./Ps(i); %[ft] Ground distance covered during climb segment
 end
 W3 = W_climb(n+1); %[lb] Weight at end of climb
-W3_W2 = W3/W2; %Weight fraction TO-climb
+
 climb_dist = sum(x_climb); %[ft] Total ground distance covered during climb phase 
 R = R-climb_dist; %[ft] Remaining cruise range after climb
 
 %% Cruise
 n = 20; %[integer] Number of cruise segments
+W_cruise = zeros(1,n+1);
 W_cruise(1) = W3; %Weight at start of cruise
 for i=1:n
     CL_cruise(i) = (2*W_cruise(i))/(rho_cruise*Sref*V_cruise^2);
