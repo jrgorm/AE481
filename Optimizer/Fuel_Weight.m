@@ -54,20 +54,22 @@ for i=2:n
     x_climb(i) = del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
 end
 W3_W2 = ff3(end);
-W3 = W_climb(n+1); %[N] Weight at end of climb
+W3 = W_climb(end); %[N] Weight at end of climb
 climb_dist = sum(x_climb); %[m] Total ground distance covered during climb phase
 R = R-climb_dist; %[m] Remaining cruise range after climb
 
 %% Cruise
 n = 20; %[integer] Number of cruise segments
-W_cruise = zeros(1,n+1); %Pre-allocation
+W_cruise = zeros(1,n); %Pre-allocation
 W_cruise(1) = W3; %Weight at start of cruise
+R_inc = R/n; %Range increment for cruise segments
 for i=1:n
     CL_cruise(i) = (2*W_cruise(i))/(rho_cruise*Sref*V_cruise^2);
     L_D_cruise(i) = CL_cruise(i)/(CD0_cruise + K_cruise*CL_cruise(i)^2);
     W_cruise(i+1) = W_cruise(i)*exp(-(R*C)/(V_cruise*L_D_cruise(i))); %[N] Compute aircraft weight for next cruise segment
+    R = R-R_inc; %Adjust for remaining cruise range
 end
-W4 = W_cruise(n+1); %[lb] Weight at end of cruise
+W4 = W_cruise(n); %[lb] Weight at end of cruise
 W4_W3 = W4/W3; %Weight fraction climb-cruise
 
 %Analytical result for cruise - useful for comparison with segment method
