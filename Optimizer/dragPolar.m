@@ -81,4 +81,3 @@ dragPolar.CL_landing = dragPolar.CLmax_landing / K_s_land^2;  %CLmax/K_s^2
 
 end
 
-
