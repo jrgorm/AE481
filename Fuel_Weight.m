@@ -47,7 +47,7 @@ for i=2:n
     del_he(i) = (h(i)+((V_climb(i).^2)./(2*g)))-(h(i-1)+((V_climb(i-1).^2)./(2*g)));
 
     W3_W2(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0))));
-    W_climb(i+1) = W3_W2(i).*W_climb(i); %[lb] Current weight
+    W_climb(i+1) = prod(W3_W2(:)).*W2; %[lb] Current weight
     
     Ps(i) = (V_climb(i).*(2*T0-D_climb(i)))./W_climb(i);
     x_climb(i) = del_he(i)./Ps(i); %[ft] Ground distance covered during climb segment
