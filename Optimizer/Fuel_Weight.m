@@ -36,7 +36,7 @@ ff3(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0)))); %Weight fra
 W_climb(2) = ff3(1).*W2; %[N] Weight at end of current climb segment
 
 Ps(1) = (V_climb(1).*(2*T0-D_climb(1)))./W_climb(1);
-x_climb(1) = del_he(1)./Ps(1); %[m] Ground distance covered during climb segment
+x_climb(1) = V_climb(1)*del_he(1)./Ps(1); %[m] Ground distance covered during climb segment
 
 for i=2:n
     V_climb(i) = sqrt(((W_climb(i)./Sref)./(3*rho_EWR*CD0_climb)).*(((2*T0)./W_climb(i))+sqrt(((2*T0)./W_climb(i)).^2 +12*CD0_climb*K_climb))); %[m/s] Cruise segment velocity
@@ -51,7 +51,7 @@ for i=2:n
     W_climb(i+1) = ff3(i).*W2; %[N] Weight at end of current climb segment
     
     Ps(i) = (V_climb(i).*(2*T0-D_climb(i)))./W_climb(i);
-    x_climb(i) = del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
+    x_climb(i) = V_climb(i)*del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
 end
 W3_W2 = ff3(end);
 W3 = W_climb(end); %[N] Weight at end of climb
