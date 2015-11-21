@@ -1,5 +1,5 @@
 %%% Fuel Fractions
-% Updated 11/20/15 JRG
+% Updated 11/21/15 JRG
 
 clear all
 close all
@@ -66,8 +66,7 @@ R_inc = R/n; %Range increment for cruise segments
 for i=1:n
     CL_cruise(i) = (2*W_cruise(i))/(rho_cruise*Sref*V_cruise^2);
     L_D_cruise(i) = CL_cruise(i)/(CD0_cruise + K_cruise*CL_cruise(i)^2);
-    W_cruise(i+1) = W_cruise(i)*exp(-(R*C)/(V_cruise*L_D_cruise(i))); %[N] Compute aircraft weight for next cruise segment
-    R = R-R_inc; %Adjust for remaining cruise range
+    W_cruise(i+1) = W_cruise(i)*exp(-(R_inc*C)/(V_cruise*L_D_cruise(i))); %[N] Compute aircraft weight for next cruise segment
 end
 W4 = W_cruise(n); %[lb] Weight at end of cruise
 W4_W3 = W4/W3; %Weight fraction climb-cruise
