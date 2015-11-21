@@ -29,7 +29,7 @@ v_cruise = mCruise*aCruise;
 %Dynamic Pressure
 q_cruise = .5*rho_cruise*v_cruise^2;
 
-T_W_cruise = q_cruise.*CD0_cruise./W_S + W_S.*(1./q_cruise.*K_cruise;
+T_W_cruise = q_cruise.*CD0_cruise./W_S + W_S.*(1./q_cruise).*K_cruise;
 
 %%% Takeoff
 
@@ -74,7 +74,10 @@ T_W_maneuver = q_maneuver.*CD0_cruise./W_S + nz^2 .* (W_S./q_maneuver).* K_cruis
 
 %% Solve Contraints for bounding conditions, then find minimum T_W there
 
-T_W_design = max([T_W_climb_minimum_1,T_W_climb_minimum_2,T_W_climb_minimum_3,T_W_takeoff]);
+T_W_design = 1.05*max([T_W_climb_minimum_1,T_W_climb_minimum_2,T_W_climb_minimum_3,T_W_takeoff]); % 5 percent margin for thrust
+design_point = [W_S; T_W_design];
+
+%% Takeoff distance (uses almost entire runway in EWR)
 
 
 %% Solve T0 from T_W
