@@ -1,17 +1,17 @@
 function [parameters] = loadParameters()
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
-    parameters.W0 = 1; %WRONG
+    parameters.W0 = 330993; %[kg] MTOW
     parameters.Wcruise = 1; %WRONG 
-    parameters.T0 = 1;
+    parameters.T0 = 938585; %[N] Two engines combined. note, its Newton, not kilo-Newton
     
-    parameters.Range = 1; %WRONG
+    parameters.Range = 15343820; %[m]
     
-    parameters.wCrew =1; %WRONG
-    parameters.wPayload =1; %WRONG
-    parameters.wPassengers =1; %WRONG
+    parameters.wCrew =1334; %[kg] 4 pilots plus 10 flight attendeds, 14 people total and their carry on
+    parameters.wPayload =5670; %[kg] checked-in luggages for all passengers
+    parameters.wPassengers =11340; %[kg] 125 passengers and their carry on
     
-    parameters.Lfus = 1; %WRONG
+    parameters.Lfus = ; %WRONG
     parameters.Dfus = 1; %WRONG
     parameters.Hfus = 1; %WRONG
     parameters.Sref = 511.79; %[m^2]
@@ -30,14 +30,14 @@ function [parameters] = loadParameters()
     parameters.Scsurf =1; %WRONG
     parameters.Sengine= 1; %WRONG
     
-    parameters.AR = 1; %WRONG
+    parameters.AR = 9; %Aspect Ratio
     
     parameters.mCruise = 0.83; % [--]
     parameters.aCruise = 296.6; % [m/s]
     
-    parameters.rho_EWR =1; %WRONG
-    parameters.rho_SIN =1; %WRONG
-    parameters.rhoCruise = 1; %WRONG
+    parameters.rho_EWR = 1.25699997; %[kg/m^3] Air Density @ Newark
+    parameters.rho_SIN = 1.12659748; %[kg/m^3] Air Density @ Singapore
+    parameters.rhoCruise = 0.379641953; %[kg/m^3] Air density @ 35,000 ft
     
     parameters.vCruise = parameters.mCruise*parameters.aCruise; % [m/s]
     parameters.vStall = 1; %WRONG
