@@ -11,13 +11,13 @@ function [parameters] = loadParameters()
     parameters.wPayload =5670; %[kg] checked-in luggages for all passengers
     parameters.wPassengers =11340; %[kg] 125 passengers and their carry on
     
-    parameters.Lfus = ; %WRONG
-    parameters.Dfus = 1; %WRONG
-    parameters.Hfus = 1; %WRONG
+    parameters.Lfus = 1; %WRONG -> get from CAD
+    parameters.Dfus = 5.79; %[m] fuselage diameter
+    parameters.Hfus = 5.79; %[m] fuselage height? (cylinder -> same as diameter)
     parameters.Sref = 511.79; %[m^2]
     parameters.cWing = 12.28; %[m]
     parameters.bWing = 66.42; %[m]
-    parameters.sweep = 1; %WRONG
+    parameters.sweep = 35; % [degrees] sweep angle
     parameters.taper =  1; %WRONG
     parameters.t_c = 1; %WRONG
     
