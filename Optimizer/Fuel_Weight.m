@@ -33,7 +33,7 @@ h(1) = h_inc.*(1)+hbase; %[m] Climb segment height
 del_he(1) = (h(1)+((V_climb(1).^2)/(2*g)))-(hbase+((1.2*V_stall^2)/(2*g))); %[m] Variation between consecutive segments
 
 ff3(1) = exp(-(C.*del_he(1))./(V_climb(1).*(1-D_climb(1)./(2*T0)))); %Weight fraction TO-cruise per segment
-W_climb(2) = ff3(1).*W2; %[N] Weight at end of current climb segment
+W_climb(2) = prod(ff3(:)).*W2; %[N] Weight at end of current climb segment
 
 Ps(1) = (V_climb(1).*(2*T0-D_climb(1)))./W_climb(1);
 x_climb(1) = V_climb(1)*del_he(1)./Ps(1); %[m] Ground distance covered during climb segment
@@ -48,12 +48,12 @@ for i=2:n
     del_he(i) = (h(i)+((V_climb(i).^2)./(2*g)))-(h(i-1)+((V_climb(i-1).^2)./(2*g))); %[m] Variation between consecutive segments
     
     ff3(i) = exp(-(C.*del_he(i))./(V_climb(i).*(1-D_climb(i)./(2*T0)))); %Weight fraction TO-cruise per segment
-    W_climb(i+1) = ff3(i).*W2; %[N] Weight at end of current climb segment
+    W_climb(i+1) = prod(ff3(:)).*W2; %[N] Weight at end of current climb segment
     
     Ps(i) = (V_climb(i).*(2*T0-D_climb(i)))./W_climb(i);
     x_climb(i) = V_climb(i)*del_he(i)./Ps(i); %[m] Ground distance covered during climb segment
 end
-W3_W2 = ff3(end);
+W3_W2 = prod(ff3(:));
 W3 = W_climb(end); %[N] Weight at end of climb
 climb_dist = sum(x_climb); %[m] Total ground distance covered during climb phase
 R = R-climb_dist; %[m] Remaining cruise range after climb
