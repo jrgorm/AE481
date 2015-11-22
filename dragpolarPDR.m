@@ -1,6 +1,6 @@
 %%% Drag Polar Calcuations and Plotting
 
-parametersPDR;
+parameters2;
 
 %%% Design Wetted Area & Ref Area
 %%% From CAD model
@@ -41,7 +41,7 @@ S_wet = S_wet_CAD;
 
 S_ref = S_ref_CAD;
 
-Swet_Sref_CAD = S_wet/S_ref
+Swet_Sref_CAD = S_wet/S_ref;
 
 %% Equivalent Parasite Area	
 
@@ -49,7 +49,7 @@ Cf = 0.0035; %Estimate from Raymer
 
 f = 85;
 
-CD0_cruise_hist = Cf*Swet_Sref_hist
+CD0_cruise_hist = Cf*Swet_Sref_hist;
 
 CD0_cruise = S_wet/S_ref*Cf  %Parasite drag coefficient
 
@@ -59,11 +59,11 @@ delCD0_landing_flaps = 0.065;
 delCD0_landing_gear = 0.020;
 
 %%% VariousCDO
-CD0_climb_1 = CD0_cruise+ delCD0_takeoff_flaps + delCD0_landing_gear; %flaps and gear
-CD0_climb_2 = CD0_cruise+ delCD0_takeoff_flaps; %takeoff flaps 
-CD0_climb_3 = CD0_cruise;
-CD0_land_1 = CD0_cruise + delCD0_landing_flaps; %landing flaps
-CD0_land_2 = CD0_cruise + delCD0_landing_flaps + delCD0_landing_gear; %landing gear & flaps
+CD0_climb_1 = CD0_cruise+ delCD0_takeoff_flaps + delCD0_landing_gear %flaps and gear
+CD0_climb_2 = CD0_cruise+ delCD0_takeoff_flaps %takeoff flaps 
+CD0_climb_3 = CD0_cruise
+CD0_land_1 = CD0_cruise + delCD0_landing_flaps %landing flaps
+CD0_land_2 = CD0_cruise + delCD0_landing_flaps + delCD0_landing_gear %landing gear & flaps
 
 %%% Span Efficiency (Sizing 1: slide 17) Oswald efficiency factor (Roskam)
 e_cruise = 0.85; 
@@ -83,13 +83,13 @@ q_cruise = .5*rho_cruise*v_cruise^2;
 
 %%% CLmax (Sizing 1: slide 20) %using high lifting desive vs sweep plot
 CLmax_cruise = 1.4;
-CLmax_landing = 2.3; %using high lifting desive vs sweep plot
+CLmax_landing = 2.6; %using high lifting desive vs sweep plot
 CLmax_climb = .8 * CLmax_landing; 
 
-%%% CL
-CL_cruise_pt = 1/(q_cruise)*WCruise/S_ref
-CL_climb = CLmax_climb / 1.2^2  %CLmax/K_s^2
-CL_landing = CLmax_landing / 1.3^2  %CLmax/K_s^2
+%%% CL: Here we impliment the saftey factors
+CL_cruise_pt = 1/(q_cruise)*WCruise/S_ref;
+CLmax_climb = CLmax_climb / 1.2^2;  %CLmax/K_s^2
+CLmax_landing = CLmax_landing / 1.3^2;  %CLmax/K_s^2
 
 %%%  Create Drag Polar Plot
 CL_cruise = -1:.01:CLmax_cruise;
