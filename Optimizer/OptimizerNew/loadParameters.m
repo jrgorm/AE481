@@ -1,10 +1,10 @@
 function [parameters] = loadParameters()
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
-    parameters.W0 = 330993*9.8; %[N] MTOW
-    parameters.Wcruise = 250000;
-    parameters.T0 = 938585; %[kg] Two engines combined.
-    
+    parameters.W0 = 729714.655; %% lbs       330993*9.8; %[N] MTOW
+    parameters.Wcruise = 551155.655; %% (lbs)      250000 (kg);
+    parameters.T0 = 206921.47 ; (lbs) %%%93858.5; %[kg] Two engines combined. %%%
+     ; (lbs) %%%
     parameters.Range = 15343820; %[m]
     
     parameters.wCrew =1334; %[kg] 4 pilots plus 10 flight attendeds, 14 people total and their carry on
