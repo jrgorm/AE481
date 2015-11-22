@@ -3,12 +3,12 @@ function [parameters] = loadParameters()
 %   Detailed explanation goes here
     parameters.W0 = 729714.655; %% lbs       330993*9.8; %[N] MTOW
     parameters.Wcruise = 551155.655; %% (lbs)      250000 (kg);
-    parameters.T0 = 206921.47 ; (lbs) %%%93858.5; %[kg] Two engines combined. %%%
-     ; (lbs) %%%
-    parameters.Range = 15343820; %[m]
+    parameters.T0 =     938585; %[kg] Two engines combined. %%%
+     
+    parameters.Range = 8285; %%% (nmi)      15343820; %[m]
     
-    parameters.wCrew =1334; %[kg] 4 pilots plus 10 flight attendeds, 14 people total and their carry on
-    parameters.wPayload = 5670; %[kg] checked-in luggages for all passengers
+    parameters.wCrew =2940.967; %%%% (lbs)   1334; %[kg] 4 pilots plus 10 flight attendeds, 14 people total and their carry on
+    parameters.wPayload = 12500; %% (lbs)      5670; %[kg] checked-in luggages for all passengers
     parameters.wPassengers = 11340; %[kg] 125 passengers and their carry on
     
     parameters.Lfus = 43.8912; %[m]
