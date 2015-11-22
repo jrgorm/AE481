@@ -77,7 +77,7 @@ plot(S_sweep,Tclimb3,'k','linewidth',2)
 plot(S_sweep,Tcruise,'c','linewidth',2)
 
 plot(S_sweep,Ttakeoff,'g','linewidth',2)
-plot([S_landing S_landing],[0 2.5e05],'y','linewidth',2)
+plot(S_land,T_sweep,'y','linewidth',2)
 plot(S_sweep,Tceiling,'w.','linewidth',2)
 
 plot(S_sweep,Tmaneuver,'b','linewidth',2)

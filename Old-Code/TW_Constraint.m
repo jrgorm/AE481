@@ -126,8 +126,37 @@ for i = 1:length(S_sweep)
 end
 
 %%% Landing
-W0 = 7.2972e+05;
-S_landing = (1/W_S_land)*W0;
+% S_a = 1000; 
+% S_land = S_SIN;
+% 
+% W_S_land = (rho_SIN/rho_SL)*CLmax_landing/80*(S_land-S_a)/1.67; 
+% 
+% W0 = 7.2972e+05;
+% S_landing = (1/W_S_land)*W0;
+
+
+T_sweep = [0:100:2*T_guess];
+S_guess = S0;
+
+for i = 1:length(T_sweep)
+    S_land(i) = S_guess;
+    Tland = T_sweep(i);
+    tol = 0.1;
+    conv = 0;
+    while conv == 0
+        W0 = WeightEst(S_land(i),Tland);
+        
+        TW = Tland/W0;
+        
+        S_new = (1/W_S_land)*W0;
+        
+        
+        if abs(S_new-S_land(i)) <= tol
+            conv = 1;
+        end
+        S_land(i) = S_new;
+    end
+end
 
 %%% Maneuver
 %Maneuver speed

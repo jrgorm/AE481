@@ -2,7 +2,7 @@
 
 function [W0,Wf] = WeightEst(S,T)
 
-parametersPDR;
+parameters;
 dragpolarPDR;
 
 wFOverWTO = 0.4999; %Constant from initial weight estimation

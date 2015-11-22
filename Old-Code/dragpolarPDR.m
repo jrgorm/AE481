@@ -1,6 +1,6 @@
 %%% Drag Polar Calcuations and Plotting
 
-parameters2;
+parameters;
 
 %%% Design Wetted Area & Ref Area
 %%% From CAD model
@@ -51,7 +51,7 @@ f = 85;
 
 CD0_cruise_hist = Cf*Swet_Sref_hist;
 
-CD0_cruise = S_wet/S_ref*Cf  %Parasite drag coefficient
+CD0_cruise = S_wet/S_ref*Cf;  %Parasite drag coefficient
 
 %%% Change in CD0 (Sizing 1: slide 17)
 delCD0_takeoff_flaps = 0.015;
@@ -59,11 +59,11 @@ delCD0_landing_flaps = 0.065;
 delCD0_landing_gear = 0.020;
 
 %%% VariousCDO
-CD0_climb_1 = CD0_cruise+ delCD0_takeoff_flaps + delCD0_landing_gear %flaps and gear
-CD0_climb_2 = CD0_cruise+ delCD0_takeoff_flaps %takeoff flaps 
-CD0_climb_3 = CD0_cruise
-CD0_land_1 = CD0_cruise + delCD0_landing_flaps %landing flaps
-CD0_land_2 = CD0_cruise + delCD0_landing_flaps + delCD0_landing_gear %landing gear & flaps
+CD0_climb_1 = CD0_cruise+ delCD0_takeoff_flaps + delCD0_landing_gear; %flaps and gear
+CD0_climb_2 = CD0_cruise+ delCD0_takeoff_flaps; %takeoff flaps 
+CD0_climb_3 = CD0_cruise;
+CD0_land_1 = CD0_cruise + delCD0_landing_flaps; %landing flaps
+CD0_land_2 = CD0_cruise + delCD0_landing_flaps + delCD0_landing_gear; %landing gear & flaps
 
 %%% Span Efficiency (Sizing 1: slide 17) Oswald efficiency factor (Roskam)
 e_cruise = 0.85; 
@@ -91,21 +91,21 @@ CL_cruise_pt = 1/(q_cruise)*WCruise/S_ref;
 CLmax_climb = CLmax_climb / 1.2^2;  %CLmax/K_s^2
 CLmax_landing = CLmax_landing / 1.3^2;  %CLmax/K_s^2
 
-%%%  Create Drag Polar Plot
-CL_cruise = -1:.01:CLmax_cruise;
-CL_climb = -1:.01:CLmax_climb;
-CL_landing = -1:.01:CLmax_landing;
-
-CD_cruise = CD0_cruise+K_cruise.*CL_cruise.^2; 
-CD_climb_1 = CD0_climb_1+K_climb.*CL_climb.^2;
-CD_climb_2 = CD0_climb_2+K_climb.*CL_climb.^2;
-CD_landing_1 = CD0_land_1+K_landing.*CL_landing.^2;
-CD_landing_2 = CD0_land_2+K_landing.*CL_landing.^2;
-
-CD_cruise_pt = CD0_cruise+K_cruise.*CL_cruise_pt.^2;
-LD_cruise = CL_cruise_pt/(CD0_cruise+K_cruise.*CL_cruise_pt.^2)
-
-x = 0:.001:.1;
-LDmax = 1/(2*K_cruise*sqrt(CD0_cruise/K_cruise))*x;
+% %%%  Create Drag Polar Plot
+% CL_cruise = -1:.01:CLmax_cruise;
+% CL_climb = -1:.01:CLmax_climb;
+% CL_landing = -1:.01:CLmax_landing;
+% 
+% CD_cruise = CD0_cruise+K_cruise.*CL_cruise.^2; 
+% CD_climb_1 = CD0_climb_1+K_climb.*CL_climb.^2;
+% CD_climb_2 = CD0_climb_2+K_climb.*CL_climb.^2;
+% CD_landing_1 = CD0_land_1+K_landing.*CL_landing.^2;
+% CD_landing_2 = CD0_land_2+K_landing.*CL_landing.^2;
+% 
+% CD_cruise_pt = CD0_cruise+K_cruise.*CL_cruise_pt.^2;
+% LD_cruise = CL_cruise_pt/(CD0_cruise+K_cruise.*CL_cruise_pt.^2)
+% 
+% x = 0:.001:.1;
+% LDmax = 1/(2*K_cruise*sqrt(CD0_cruise/K_cruise))*x;
 
 
