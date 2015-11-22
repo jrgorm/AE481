@@ -3,7 +3,7 @@ function [parameters] = loadParameters()
 %   Detailed explanation goes here
     parameters.W0 = 330993; %[kg] MTOW
     parameters.Wcruise = 1; %WRONG 
-    parameters.T0 = 938585; %[N] Two engines combined. note, its Newton, not kilo-Newton
+    parameters.T0 = 211002; %% (lbs)     938585; %[N] Two engines combined. note, its Newton, not kilo-Newton
     
     parameters.Range = 15343820; %[m]
     
