@@ -5,16 +5,16 @@ function [ parameters ] = fuelWeight(parameters, dragP)
 
 g = 9.8; %[m/s^2] Gravitational acceleration
 
-W0 = parameters.W0;
-T0 = parameters.T0/2;
-Sref = parameters.Sref;
+W0 = parameters.W0 *4.44822162825;
+T0 = parameters.T0/2 *4.44822162825;
+Sref = parameters.Sref *0.092903;
 
-rho_EWR = parameters.rho_EWR;
-
+%rho_EWR = parameters.rho_EWR;
+rho_EWR = 0.0024389826;
 C = parameters.C; %xxxxxxxxxxxxxxxxx
 C_loiter = C;
-V_stall = parameters.vStall; %xxxxxxxxxx
-V_cruise = parameters.vCruise;
+V_stall = parameters.vStall*0.3048; %xxxxxxxxxx
+V_cruise = parameters.vCruise*0.3048;
 
 CD0_climb = dragP.CD0_climb_3; %THERE ARE 3 OF THESE, ACCOUNT FOR THEM
 K_climb = dragP.K_climb;
@@ -26,17 +26,19 @@ CD0_loiter = dragP.CD0_loiter;
 K_loiter = dragP.K_loiter;
 E_loiter = parameters.E_loiter;
 
-R_alt = parameters.R_alt; %xxxxxxxxxx
-V_alt = parameters.V_alt; %xxxxxxxxxx
+R_alt = parameters.R_alt*1852; %xxxxxxxxxx
+V_alt = parameters.V_alt*0.3048; %xxxxxxxxxx
 C_alt = parameters.C_alt;
 L_D_alt = parameters.L_D_alt;
 
-cruise_h = parameters.hCruise;
-hbase = parameters.hBase;
-rho_cruise = parameters.rhoCruise;
-qCruise = parameters.qCruise;
+cruise_h = parameters.hCruise0.3048;
+hbase = parameters.hBase0.3048;
+%rho_cruise = parameters.rhoCruise;
+rho_cruise = 0.000736627; 
+%qCruise = parameters.qCruise;
+qCruse = 0.5*rho_cruise*V_cruise^2;
 
-R = parameters.Range; %xxxxxxxxxxxx
+R = parameters.R*1852; %xxxxxxxxxxxx
 
 %%% NOTE all T0 is taken as single engine maximum thrust %%%
 
