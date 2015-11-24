@@ -31,8 +31,8 @@ V_alt = parameters.V_alt*0.3048; %xxxxxxxxxx
 C_alt = parameters.C_alt;
 L_D_alt = parameters.L_D_alt;
 
-cruise_h = parameters.hCruise0.3048;
-hbase = parameters.hBase0.3048;
+cruise_h = parameters.hCruise*0.3048;
+hbase = parameters.hBase*0.3048;
 %rho_cruise = parameters.rhoCruise;
 rho_cruise = 0.000736627; 
 %qCruise = parameters.qCruise;
