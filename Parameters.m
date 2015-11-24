@@ -13,7 +13,7 @@ rho_SIN = 1.12659748; %[kg/m^3] Air Density @ Singapore
 rho_cruise = 0.379641953; %[kg/m^3] Air density @ 35,000 ft
 rho_SL = 1.225; %[kg/m^3] Air Density @ PDAS Standard Atmosphere Sea Level
 
-E_loiter = 0.5; %[hr] Duration of loiter phase
+E_loiter = 30*60; %[sec] Duration of loiter phase
 R_alt = 370400; %[m] Alternate range
 V_alt = 75; %[m/s] Alternate cruise velocity
 %
@@ -23,25 +23,28 @@ Sref = 511.79; %[m^2] Wing area
 % Dfus = 
 %
 %% Fuel Weight parameters
-C = 0.53; %[1/hr] TSFC of GE90-110B1L
-C_loiter = .5
-C_alt = .5
+C = 0.53/3600; %[1/hr] TSFC of GE90-110B1L
+C_loiter = .3/3600
+C_alt = .5/3600
 T0 = 469295; %[N] Maximum thrust per engine
 W0 = 3243732.93149059; %[N] MTOW
-V_stall = 38.89; %[m/s] Stall speed
+V_stall = 62.3127; %[m/s] Stall speed
 %
 %% Drag Polar parameters 
 % cf = 
 % Swet_Sref = 
 % AR = 
 e = .9;
-CD0_climb =.03;
+CD0_climb =.0529;
+CD0_climb2 = .0329;
+CD0_climb3 = .0179;
 K_climb = 0.044209706414415;
-CD0_cruise = .0177;
+CD0_cruise = .0179;
 K_cruise = 0.041609135448862;
-CD0_loiter =.0177;
+CD0_loiter =.0329;
 K_loiter = 0.041609135448862;
-L_D_max = 16;
+L_D_TO = 7.3;
+L_D_max = 16.4;
 L_D_alt = 10;
 %
 %% Design Diagram parameters
