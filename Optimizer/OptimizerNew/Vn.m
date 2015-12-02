@@ -1,6 +1,6 @@
 %%% V-n Diagram
-% Updated 11/30/15 JRG
-function [VC] = Vn(parameters)
+% Updated 12/2/15 JRG
+function [] = Vn(parameters)
 close all;
 
 g = 32.174; %[ft/s^2] Gravitational acceleration
@@ -86,13 +86,16 @@ end
 
 %Calculate VB (intersection of positive maneuver and positive VB gust load factors)
 %Find intersection of positive maneuver and negative VB gust load factors
+%Find intersection of positive maneuver and positive maneuver load factor limit
 for i=1:length(VEAS)
     error1(i) = abs(npos(i)-nVB_gustpos(i));
     error2(i) = abs(npos(i)-nVB_gustneg(i));
+    error3(i) = abs(npos(i)-2.5);
 end
 [minVal minInd] = min(error1);
 VB = VEAS(minInd); %[ft/s]
 [crossVal crossInd] = min(error2);
+[limVal limInd] = min(error3);
 
 %Plot gust lines over maneuver load factors
 plot(VEAS,nVB_gustpos,'--')
@@ -131,7 +134,7 @@ plot([VA VA],[10 -10],'--') %VA line
 plot([VB VB],[10 -10],'--') %VB line
 plot([VC VC],[10 -10],'--') %VC line
 plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))]) %VD line
-plot([VA VD],[2.5 2.5],'k-') %Positive load factor boundary
+plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
 plot([VEAS(maxInd) VC],[-1,-1]) %Negative load factor boundary
 plot([VC VD],[-1 0])
 % Gust lines
@@ -154,6 +157,7 @@ plot(VEAS(crossInd:minInd),npos(crossInd:minInd),'k')
 hold on
 % Maneuver envelope
 plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))],'k') %VD line
+plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
 % Gust lines
 plot(VEAS(crossInd:minInd),nVB_gustneg(crossInd:minInd),'k')
 % Gust line boundaries
