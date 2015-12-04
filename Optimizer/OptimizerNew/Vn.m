@@ -21,6 +21,8 @@ sweep = parameters.sweep; %Half-chord sweep!
 bWing = parameters.bWing;
 cWing = Sref/bWing; %[ft] Mean geometric chord
 
+kmhplot = 1; %Flag for plotting V-n in km/h
+
 %% Equivalent airspeeds
 Vcruise = 0.5924838012958963*aCruise*mCruise; %[knots] Cruise velocity TAS
 Vcruise = Vcruise*sqrt(sigma); %[knots] Cruise EAS
@@ -179,4 +181,36 @@ set(gca,'XTickLabel',numbers)
 %
 xlabel('Equivalent Air Speed (knots)')
 ylabel('Load factor')
+
+if kmhplot == 1
+    figure
+    % Maneuver load factors
+    plot(VEAS(crossInd:minInd),npos(crossInd:minInd),'k')
+    hold on
+    % Maneuver envelope
+    plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))],'k') %VD line
+    plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
+    % Gust lines
+    plot(VEAS(1:minInd),nVB_gustpos(1:minInd),'k--')
+    plot(VEAS(1:crossInd),nVB_gustneg(1:crossInd),'k--')
+    plot(VEAS(1:round(VC,0)),nVC_gustpos(1:round(VC,0)),'k--')
+    plot(VEAS(1:round(VC,0)),nVC_gustneg(1:round(VC,0)),'k--')
+    plot(VEAS(1:round(VD,0)),nVD_gustpos(1:round(VD,0)),'k--')
+    plot(VEAS(1:round(VD,0)),nVD_gustneg(1:round(VD,0)),'k--')
+    plot(VEAS(crossInd:minInd),nVB_gustneg(crossInd:minInd),'k')
+    % Gust line boundaries
+    plot([VEAS(minInd) VC],[nVB_gustpos(round(VB,0)) nVC_gustpos(round(VC,0))],'k')
+    plot([VC VD],[nVC_gustpos(round(VC,0)) nVD_gustpos(round(VD,0))],'k')
+    plot([VEAS(minInd) VC],[nVB_gustneg(round(VB,0)) nVC_gustneg(round(VC,0))],'k')
+    plot([VC VD],[nVC_gustneg(round(VC,0)) nVD_gustneg(round(VD,0))],'k')
+    % Fix x-axis to display in knots
+    set(gca,'XLim',[0 VD+25])
+    set(gca,'XTick',[0:50:VD+25])
+    numbers = round(1.09728.*[0:50:VD+25],-1);
+    set(gca,'XTickLabel',numbers)
+    %
+    xlabel('Equivalent Air Speed (km/h)')
+    ylabel('Load factor')
+end
+
 end
