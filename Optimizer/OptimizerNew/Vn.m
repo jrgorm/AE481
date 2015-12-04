@@ -1,5 +1,5 @@
 %%% V-n Diagram
-% Updated 12/2/15 JRG
+% Updated 12/3/15 JRG
 function [] = Vn(parameters)
 close all;
 
@@ -159,6 +159,12 @@ hold on
 plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))],'k') %VD line
 plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
 % Gust lines
+plot(VEAS(1:minInd),nVB_gustpos(1:minInd),'k--')
+plot(VEAS(1:crossInd),nVB_gustneg(1:crossInd),'k--')
+plot(VEAS(1:round(VC,0)),nVC_gustpos(1:round(VC,0)),'k--')
+plot(VEAS(1:round(VC,0)),nVC_gustneg(1:round(VC,0)),'k--')
+plot(VEAS(1:round(VD,0)),nVD_gustpos(1:round(VD,0)),'k--')
+plot(VEAS(1:round(VD,0)),nVD_gustneg(1:round(VD,0)),'k--')
 plot(VEAS(crossInd:minInd),nVB_gustneg(crossInd:minInd),'k')
 % Gust line boundaries
 plot([VEAS(minInd) VC],[nVB_gustpos(round(VB,0)) nVC_gustpos(round(VC,0))],'k')
@@ -166,9 +172,9 @@ plot([VC VD],[nVC_gustpos(round(VC,0)) nVD_gustpos(round(VD,0))],'k')
 plot([VEAS(minInd) VC],[nVB_gustneg(round(VB,0)) nVC_gustneg(round(VC,0))],'k')
 plot([VC VD],[nVC_gustneg(round(VC,0)) nVD_gustneg(round(VD,0))],'k')
 % Fix x-axis to display in knots
-set(gca,'XLim',[VEAS(crossInd)-25 VD+25])
-set(gca,'XTick',[VEAS(crossInd)-25:50:VD+25])
-numbers = ['090';'120';'150';'180';'210';'240';'270';'300';'330';'360'];
+set(gca,'XLim',[0 VD+25])
+set(gca,'XTick',[0:50:VD+25])
+numbers = round(0.5924838012958963.*[0:50:VD+25],-1);
 set(gca,'XTickLabel',numbers)
 %
 xlabel('Equivalent Air Speed (knots)')
