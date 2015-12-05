@@ -1,18 +1,19 @@
 %%% V-n Diagram
-% Updated 12/3/15 JRG
+% Updated 12/5/15 JRG
 function [] = Vn(parameters)
 close all;
 
 g = 32.174; %[ft/s^2] Gravitational acceleration
-CLmaxcruise = 1.4;
+CLmaxcruise = 1.7;
 %CLmax = 2.6; % Landing configuration
-CLalphapos = 2.3;
-CLalphaneg = -CLalphapos/3;
+CLalphapos = 1.7;
+CLalphaneg = -1.2;
 rhoSL = 0.0023768924; %[slugs/ft^3] Sea level air density
 rhoCruise = 0.0007382; %[slugs/ft^3] Cruise altitude air density
 sigma = rhoCruise/rhoSL;
 
 W0 = parameters.W0;
+W0 = W0*0.49;
 Sref = parameters.Sref;
 mCruise = parameters.mCruise;
 aCruise = parameters.aCruise;
@@ -78,12 +79,12 @@ UD = 18.75; %[ft/s] (From EqGust.m plot)
 
 %Calculate gust load factor
 for i=1:length(VEAS)
-    nVB_gustpos(i) = 1+3.*((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVB_gustneg(i) = 1-3.*((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVC_gustpos(i) = 1+3.*((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVC_gustneg(i) = 1-3.*((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVD_gustpos(i) = 1+3.*((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVD_gustneg(i) = 1-3.*((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVB_gustpos(i) = 1+((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVB_gustneg(i) = 1-((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVC_gustpos(i) = 1+((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVC_gustneg(i) = 1-((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVD_gustpos(i) = 1+((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVD_gustneg(i) = 1-((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
 end
 
 %Calculate VB (intersection of positive maneuver and positive VB gust load factors)
@@ -182,14 +183,14 @@ set(gca,'XTickLabel',numbers)
 xlabel('Equivalent Air Speed (knots)')
 ylabel('Load factor')
 
-if kmhplot == 1
+if kmhplot==1
     figure
     % Maneuver load factors
     plot(VEAS(crossInd:minInd),npos(crossInd:minInd),'k')
     hold on
     % Maneuver envelope
     plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))],'k') %VD line
-    plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
+    %plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
     % Gust lines
     plot(VEAS(1:minInd),nVB_gustpos(1:minInd),'k--')
     plot(VEAS(1:crossInd),nVB_gustneg(1:crossInd),'k--')
