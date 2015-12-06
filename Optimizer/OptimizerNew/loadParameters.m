@@ -3,7 +3,7 @@ function [parameters] = loadParameters()
 %   Detailed explanation goes here
     parameters.W0 = 729714.655; %% lbs       330993*9.8; %[N] MTOW
     parameters.Wcruise = 551155.655; %% (lbs)      250000 (kg);
-    parameters.T0 =   211002; %%%  (lbs)  938585; %[N] Two engines combined. %%%
+    parameters.T0 =   211002*0.85; %%%  (lbs)  938585*0.85; %[N] Two engines combined. %%% 85% thrust of GE9X for thrust "efficiency"
      
     parameters.Range = 8285; %%% (nmi)      15343820; %[m]
     
