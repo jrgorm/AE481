@@ -190,7 +190,7 @@ if kmhplot==1
     hold on
     % Maneuver envelope
     plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))],'k') %VD line
-    %plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
+    plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
     % Gust lines
     plot(VEAS(1:minInd),nVB_gustpos(1:minInd),'k--')
     plot(VEAS(1:crossInd),nVB_gustneg(1:crossInd),'k--')
