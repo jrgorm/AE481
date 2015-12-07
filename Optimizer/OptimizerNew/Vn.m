@@ -181,7 +181,7 @@ numbers = round(0.5924838012958963.*[0:50:VD+25],-1);
 set(gca,'XTickLabel',numbers)
 %
 xlabel('Equivalent Air Speed (knots)')
-ylabel('Load factor')
+ylabel('Load Factor')
 
 if kmhplot==1
     figure
@@ -211,7 +211,7 @@ if kmhplot==1
     set(gca,'XTickLabel',numbers)
     %
     xlabel('Equivalent Air Speed (km/h)')
-    ylabel('Load factor')
+    ylabel('Load Factor')
 end
 
 end
