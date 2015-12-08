@@ -1,5 +1,5 @@
 %%% V-n Diagram
-% Updated 12/5/15 JRG
+% Updated 12/8/15 JRG
 function [] = Vn(parameters)
 close all;
 
@@ -13,12 +13,12 @@ rhoCruise = 0.0007382; %[slugs/ft^3] Cruise altitude air density
 sigma = rhoCruise/rhoSL;
 
 W0 = parameters.W0;
-W0 = W0*0.49;
+%W0 = W0*0.49;
 Sref = parameters.Sref;
 mCruise = parameters.mCruise;
 aCruise = parameters.aCruise;
 AR = parameters.AR;
-sweep = parameters.sweep; %Half-chord sweep!
+sweep = parameters.sweep*.75; %Half-chord sweep!
 bWing = parameters.bWing;
 cWing = Sref/bWing; %[ft] Mean geometric chord
 
@@ -37,8 +37,8 @@ VA = VS*sqrt(2.5); %[ft/s] [Martins]
 beta = sqrt(1-mCruise^2); %Prandtl-Glauert factor
 kappa = 0.97; %empirical correction factor [Kroo]
 CLA = (2*pi*AR)/(2+sqrt(((beta/kappa)^2)*(AR^2)*(1+((tan(sweep)^2)/beta^2))+4));
-mu = (2*(W0/Sref))/(rhoCruise*cWing*CLA*g);
-Kg = (0.88*mu)/(5.3+mu);
+mu = (2*(W0/Sref))/(rhoCruise*cWing*CLA*g)
+Kg = (0.88*mu)/(5.3+mu)
 UB = 52; %[ft/s] (From EqGust.m plot)
 %VB = VS*sqrt(1+((Kg*UB*Vcruise*CLA)/(498*(W0/Sref)))); %[ft/s] [FAR 25.335(d)(1)]
 %
@@ -79,12 +79,12 @@ UD = 18.75; %[ft/s] (From EqGust.m plot)
 
 %Calculate gust load factor
 for i=1:length(VEAS)
-    nVB_gustpos(i) = 1+((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVB_gustneg(i) = 1-((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVC_gustpos(i) = 1+((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVC_gustneg(i) = 1-((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVD_gustpos(i) = 1+((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
-    nVD_gustneg(i) = 1-((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVB_gustpos(i) = 1+2.*((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVB_gustneg(i) = 1-2.*((Kg*UB*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVC_gustpos(i) = 1+2.*((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVC_gustneg(i) = 1-2.*((Kg*UC*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVD_gustpos(i) = 1+2.*((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
+    nVD_gustneg(i) = 1-2.*((Kg*UD*0.5924838012958963*VEAS(i)*CLA)/(498*(W0/Sref)));
 end
 
 %Calculate VB (intersection of positive maneuver and positive VB gust load factors)
@@ -181,7 +181,7 @@ numbers = round(0.5924838012958963.*[0:50:VD+25],-1);
 set(gca,'XTickLabel',numbers)
 %
 xlabel('Equivalent Air Speed (knots)')
-ylabel('Load Factor')
+ylabel('Load factor')
 
 if kmhplot==1
     figure
@@ -190,6 +190,7 @@ if kmhplot==1
     hold on
     % Maneuver envelope
     plot([VD VD],[nVD_gustpos(round(VD,0)) nVD_gustneg(round(VD,0))],'k') %VD line
+    plot([VS VS],[npos(round(VS,0)) nVB_gustneg(round(VS,0))],'k') %VS line
     plot([VEAS(limInd) VD],[2.5 2.5],'k') %Positive load factor boundary
     % Gust lines
     plot(VEAS(1:minInd),nVB_gustpos(1:minInd),'k--')
@@ -211,7 +212,7 @@ if kmhplot==1
     set(gca,'XTickLabel',numbers)
     %
     xlabel('Equivalent Air Speed (km/h)')
-    ylabel('Load Factor')
+    ylabel('Load factor')
 end
 
 end
